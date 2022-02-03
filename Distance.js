@@ -25,6 +25,9 @@ var Testing = function(processingInstance) {
          var startTrack=0;        
 
         var getLocation = function() {
+
+            text("at getLocation",10,50);
+
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(savePosition1,displayError,{enableHighAccuracy: true});
             } else { 
@@ -52,7 +55,7 @@ var Testing = function(processingInstance) {
             Long2 = position.coords.longitude;           
         }
         function displayError(){
-            
+            text("at displayError",200,50);
         }
 
 
@@ -84,14 +87,9 @@ var Testing = function(processingInstance) {
         mouseClicked = function() {
 
             if(mouseX>=50 && mouseX<=350 && mouseY>=200 && mouseY<=300) {
-               getLocation()
-//               Lat1=Lat
-//              Long1=Long
-//               Test Location for PC
-//               Lat1=30.537;
-//               Long1=-81.441;
+                getLocation()
                 setInterval(trackLocation,5000);
-               startTrack=0;
+                startTrack=0;
             }            
         }
 
