@@ -22,7 +22,8 @@ var Testing = function(processingInstance) {
          var Lat2 = 0;
          var Long2 = 0;
          var dist=0;
-         var startTrack=0;        
+         var startTrack=0; 
+         var msg= "";       
 
         var getLocation = function() {
 
@@ -56,6 +57,7 @@ var Testing = function(processingInstance) {
         }
         function displayError(){
             text("at displayError",200,50);
+            msg="at displayError";
         }
 
 
@@ -88,7 +90,7 @@ var Testing = function(processingInstance) {
 
             if(mouseX>=50 && mouseX<=350 && mouseY>=200 && mouseY<=300) {
                 getLocation()
-                setInterval(trackLocation,5000);
+                setInterval(trackLocation,10000);
                 startTrack=0;
             }            
         }
@@ -119,6 +121,9 @@ var Testing = function(processingInstance) {
             text("Long ="+Long2.toFixed(3),600,400);
             text(dist.toFixed(0)+" Yards",400,450);
             text((dist*3).toFixed(0)+" Feet",400,500);
+
+            text("3-Feb-2022 5:00pm "+msg,200,600);
+
             console.log(dist.toFixed(0),Lat.toFixed(3),Long.toFixed(3),Lat1.toFixed(3),Long1.toFixed(3),Lat2.toFixed(3),Long2.toFixed(3));
 
         }
