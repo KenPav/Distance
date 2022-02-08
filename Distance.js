@@ -28,7 +28,7 @@ var Testing = function(processingInstance) {
         const areaLong = [];
         var R = Math.PI/180;
 
-         var msg= "02.08.22 16:00";       
+         var msg= "02.08.22 16:20";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
@@ -145,14 +145,14 @@ var Testing = function(processingInstance) {
             fill(FirstColor);
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
-                text(Lat2.toFixed(3)+", "+Long2.toFixed(3),350,240)
+                text(Lat2.toFixed(3)+", "+Long2.toFixed(3),350,250);
             }
             else {
                 text("Start New Area",350,170);    
             }
             text("Calculate Area",350,370);
             if (Area != 0) {
-                text("Area: "+sfArea.toFixed(0)+" sq ft, "+acresArea.toFixed(3)+" acres",350,430);
+                text("Area: "+sfArea.toFixed(0)+" sq ft  /  "+acresArea.toFixed(3)+" acres",350,440);
             }
             text("Main Menu",350,570);
         }
@@ -211,6 +211,7 @@ var Testing = function(processingInstance) {
                     areaLat = [];
                     areaLong = [];
                     Count = 0;
+                    draw();
                 }
                 getLocation();
             }            
@@ -243,9 +244,6 @@ var Testing = function(processingInstance) {
             if(Activity === 2) {
                 areaActivity();
             }
-
-
-
 
             textSize(25);
             text("Version: "+msg,350,650);
