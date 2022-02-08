@@ -26,8 +26,9 @@ var Testing = function(processingInstance) {
 
         const areaLat = [];
         const areaLong = [];
+        var R = Math.PI/180;
 
-         var msg= "02.08.22 14:00";       
+         var msg= "02.08.22 16:00";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
@@ -41,7 +42,9 @@ var Testing = function(processingInstance) {
                 startTrack++;
                 navigator.geolocation.getCurrentPosition(savePosition2,displayError,{enableHighAccuracy: true});
 //                console.log("Lat2, Long2:",Lat2.toFixed(3),Long2.toFixed(3));
-                distance();
+                if(Activity===1) {
+                    distance();
+                }
             } else { 
                 console.log("Geolocation is not supported by this browser.");
             }
@@ -55,7 +58,7 @@ var Testing = function(processingInstance) {
             if(Activity===2) {
                 console.log("ready to add lat/long");
                 areaLat.push(position.coords.latitude);
-                areaLong.push(position.coords.latitude); 
+                areaLong.push(position.coords.longitude); 
                 console.log("here",Count,areaLat[Count].toFixed(3),areaLong[Count].toFixed(3));                      
                 Count++;  
             }
@@ -142,6 +145,7 @@ var Testing = function(processingInstance) {
             fill(FirstColor);
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
+                text(Lat2.toFixed(3)+", "+Long2.toFixed(3),350,240)
             }
             else {
                 text("Start New Area",350,170);    
@@ -155,21 +159,22 @@ var Testing = function(processingInstance) {
 
         calcArea = function() {
 
-        if (Count > 2) {
-            areaLat.push(areaLat[1]);
-            areaLong.push(areaLong[1]); 
-            for (var i = 0; i < Count + 1; i++)
-            {
-                Area += ConvertToRadian(areaLong[i+1] - areaLong[i]) * (2 + Math.Sin(ConvertToRadian(areaLat[i])) + Math.Sin(ConvertToRadian(areaLat[i+1])));
-            }
-
+            if (Count > 2) {
+                console.log("Here at calcArea",Count,areaLat[Count-1],areaLong[Count-1]);
+                areaLat.push(areaLat[0]);
+                areaLong.push(areaLong[0]); 
+                for (var i = 0; i < Count; i++) {
+                    Area = Area + ( R*(areaLong[i+1] - areaLong[i]) * (2 + Math.sin(areaLat[i]*R) + Math.sin(areaLat[i+1]*R)) );
+                }
+//          Calculate area in square meters
+                Area = Area * 6378137 * 6378137/ 2;
 //          Calculate area in square feet
-            Area = Area * 6378137 * 6378137/ 2;
-//          Calculate area in square meters
-            sfArea = Area * 10.763915;
-//          Calculate area in square meters
-            area = sfArea / 43560 ;
-        }
+                sfArea = Area * 10.763915;
+//          Calculate area in acres
+                acresArea = sfArea / 43560 ;
+                console.log(Area,sfArea,acresArea);
+
+            }
 
 
         }
@@ -183,6 +188,7 @@ var Testing = function(processingInstance) {
 
             if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
                 Activity = 2;
+                setInterval(trackLocation,1000);
                 Count = 0;
 
             }            
@@ -199,6 +205,7 @@ var Testing = function(processingInstance) {
             }            
 
             if(Activity===2 && Area===0 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
+                console.log("Area Test",Area,Count);
                 if (Area != 0) {
                     Area=0;
                     areaLat = [];
@@ -213,6 +220,7 @@ var Testing = function(processingInstance) {
             }            
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
                 Activity = 0;
+                clearInterval(trackLocation);
             }            
 
 
