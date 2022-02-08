@@ -1,6 +1,6 @@
 var Testing = function(processingInstance) {
     with (processingInstance) {
-        var canvasSize = 800;
+        var canvasSize = 700;
         size(canvasSize,canvasSize); 
         frameRate(30);
         
@@ -23,12 +23,13 @@ var Testing = function(processingInstance) {
          var Long2 = 0;
          var dist=0;
          var startTrack=0; 
-         var msg= "";       
+
+        const areaLat = [];
+        const areaLong = [];
+
+         var msg= "02.08.22 14:00";       
 
         var getLocation = function() {
-
-            text("at getLocation",10,50);
-
             if (navigator.geolocation) {
                 navigator.geolocation.getCurrentPosition(savePosition1,displayError,{enableHighAccuracy: true});
             } else { 
@@ -39,16 +40,25 @@ var Testing = function(processingInstance) {
             if (navigator.geolocation) {
                 startTrack++;
                 navigator.geolocation.getCurrentPosition(savePosition2,displayError,{enableHighAccuracy: true});
-                console.log("Lat2, Long2:",Lat2.toFixed(3),Long2.toFixed(3));
+//                console.log("Lat2, Long2:",Lat2.toFixed(3),Long2.toFixed(3));
                 distance();
             } else { 
                 console.log("Geolocation is not supported by this browser.");
             }
         }
         function savePosition1(position) {
-            console.log("Made it to savePosition1");
-            Lat1 = position.coords.latitude;
-            Long1 = position.coords.longitude;           
+            console.log("Made it to savePosition1, Activity = ",Activity);
+            if(Activity===1) {
+                Lat1 = position.coords.latitude;
+                Long1 = position.coords.longitude;           
+            }
+            if(Activity===2) {
+                console.log("ready to add lat/long");
+                areaLat.push(position.coords.latitude);
+                areaLong.push(position.coords.latitude); 
+                console.log("here",Count,areaLat[Count].toFixed(3),areaLong[Count].toFixed(3));                      
+                Count++;  
+            }
         }
         function savePosition2(position) {
             console.log("Made it to savePosition2");
@@ -56,7 +66,7 @@ var Testing = function(processingInstance) {
             Long2 = position.coords.longitude;           
         }
         function displayError(){
-            text("at displayError",200,50);
+            text("at displayError",600,50);
             msg="at displayError";
         }
 
@@ -85,46 +95,153 @@ var Testing = function(processingInstance) {
             }
         }
 
-
-        mouseClicked = function() {
-
-            if(mouseX>=50 && mouseX<=350 && mouseY>=200 && mouseY<=300) {
-                getLocation()
-                setInterval(trackLocation,10000);
-                startTrack=0;
-            }            
-        }
-
-
-        var Count=0;
-        draw = function() {
-        background(BackColor);
-
-
+        selectActivity = function() {
+            background(BackColor);
             fill(BoxColor);
-            
-            rect(50,200,300,100);
-            fill(BackColor);
-            rect(450,200,300,100);
-
+            rect(200,200,300,100);
+            rect(200,400,300,100);
             textSize(40);
             textAlign(CENTER);
             fill(FirstColor);
+            text("Distance",350,270);
+            text("Area",350,470);
+        }
 
-            text("Interval: "+startTrack,600,100);
-            text("Set Point",200,270);
-            text("Current",600,270);
+        distanceActivity = function() {
+//      Distance Calculation            
+            background(BackColor);
+            fill(BoxColor);
+            rect(100,100,200,100);
+            rect(200,450,300,100);
+            fill(BackColor);
+            rect(400,100,200,100);
+            textSize(40);
+            textAlign(CENTER);
+            fill(FirstColor);
+            text("Interval: "+startTrack,600,50);
+            text("Set Point",200,170);
+            text("Current",500,170);
+            text("Main Menu",350,520);
+            text("Lat  ="+Lat1.toFixed(3),200,250);
+            text("Long ="+Long1.toFixed(3),200,300);
+            text("Lat  ="+Lat2.toFixed(3),500,250);
+            text("Long ="+Long2.toFixed(3),500,300);
+            text(dist.toFixed(0)+" Yards",350,350);
+            text((dist*3).toFixed(0)+" Feet",350,400);
+        }
 
-            text("Lat  ="+Lat1.toFixed(3),200,350);
-            text("Long ="+Long1.toFixed(3),200,400);
-            text("Lat  ="+Lat2.toFixed(3),600,350);
-            text("Long ="+Long2.toFixed(3),600,400);
-            text(dist.toFixed(0)+" Yards",400,450);
-            text((dist*3).toFixed(0)+" Feet",400,500);
+        areaActivity = function() {
+//      Area Calculation
+            background(BackColor);
+            fill(BoxColor);
+            rect(200,100,300,100);
+            rect(200,300,300,100);
+            rect(200,500,300,100);
+            textSize(40);
+            textAlign(CENTER);
+            fill(FirstColor);
+            if (Area===0) {
+                text("Set Point #"+(Count+1),350,170);
+            }
+            else {
+                text("Start New Area",350,170);    
+            }
+            text("Calculate Area",350,370);
+            if (Area != 0) {
+                text("Area: "+sfArea.toFixed(0)+" sq ft, "+acresArea.toFixed(3)+" acres",350,430);
+            }
+            text("Main Menu",350,570);
+        }
 
-            text("3-Feb-2022 5:00pm "+msg,200,600);
+        calcArea = function() {
 
-            console.log(dist.toFixed(0),Lat.toFixed(3),Long.toFixed(3),Lat1.toFixed(3),Long1.toFixed(3),Lat2.toFixed(3),Long2.toFixed(3));
+        if (Count > 2) {
+            areaLat.push(areaLat[1]);
+            areaLong.push(areaLong[1]); 
+            for (var i = 0; i < Count + 1; i++)
+            {
+                Area += ConvertToRadian(areaLong[i+1] - areaLong[i]) * (2 + Math.Sin(ConvertToRadian(areaLat[i])) + Math.Sin(ConvertToRadian(areaLat[i+1])));
+            }
+
+//          Calculate area in square feet
+            Area = Area * 6378137 * 6378137/ 2;
+//          Calculate area in square meters
+            sfArea = Area * 10.763915;
+//          Calculate area in square meters
+            area = sfArea / 43560 ;
+        }
+
+
+        }
+
+
+        mouseClicked = function() {
+
+            if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=200 && mouseY<=300) {
+                Activity = 1;
+            }            
+
+            if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
+                Activity = 2;
+                Count = 0;
+
+            }            
+
+            if(Activity===1 && mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
+                getLocation();
+                setInterval(trackLocation,1000);
+                startTrack=0;
+            }            
+
+            if(Activity===1 && mouseX>=200 && mouseX<=500 && mouseY>=450 && mouseY<=550) {
+                Activity = 0;
+                clearInterval(trackLocation);
+            }            
+
+            if(Activity===2 && Area===0 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
+                if (Area != 0) {
+                    Area=0;
+                    areaLat = [];
+                    areaLong = [];
+                    Count = 0;
+                }
+                getLocation();
+            }            
+
+            if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=300 && mouseY<=400) {
+                calcArea();
+            }            
+            if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
+                Activity = 0;
+            }            
+
+
+        }
+
+        var Area=0
+        var sfArea = 0;
+        var acresArea = 0;
+        var Activity = 0;
+        var Count=0;
+        draw = function() {
+            if(Activity === 0) {
+                selectActivity();
+            }
+
+            if(Activity === 1) {
+                distanceActivity();
+            }
+
+            if(Activity === 2) {
+                areaActivity();
+            }
+
+
+
+
+            textSize(25);
+            text("Version: "+msg,350,650);
+
 
         }
 
