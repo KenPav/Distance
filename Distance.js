@@ -28,7 +28,7 @@ var Testing = function(processingInstance) {
         const areaLong = [];
         var R = Math.PI/180;
 
-         var msg= "02.09.22/10:00";       
+         var msg= "02.09.22/11:00";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
@@ -214,6 +214,7 @@ var Testing = function(processingInstance) {
                 console.log("Area Test",Area,Count);
                 if (sfArea != 0) {
                     Area=0;
+                    sfArea=0;
                     areaLat = [];
                     areaLong = [];
                     Count = 0;
