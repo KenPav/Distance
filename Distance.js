@@ -28,7 +28,7 @@ var Testing = function(processingInstance) {
         const areaLong = [];
         var R = Math.PI/180;
 
-         var msg= "02.09.22 09:00";       
+         var msg= "02.09.22/10:00";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
@@ -150,7 +150,7 @@ var Testing = function(processingInstance) {
                     Lat1=areaLat[Count-1];
                     Long1-areaLong[Count-1];
                     distance()
-                    text(dist*3+"ft from Point #"+Count,350,295);
+                    text(dist*3.toFixed(0)+"ft from Point #"+Count,350,295);
                 }
             }
             else {
@@ -212,7 +212,7 @@ var Testing = function(processingInstance) {
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
                 console.log("Area Test",Area,Count);
-                if (Area != 0) {
+                if (sfArea != 0) {
                     Area=0;
                     areaLat = [];
                     areaLong = [];
