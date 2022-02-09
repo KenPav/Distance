@@ -147,10 +147,10 @@ var Testing = function(processingInstance) {
                 text("Set Point #"+(Count+1),350,170);
                 text(Lat2.toFixed(6)+", "+Long2.toFixed(6),350,250);
                 if(Count>1) {
-                    Lat1=areaLat[Count-1];
-                    Long1-areaLong[Count-1];
+                    Lat1=areaLat[Count];
+                    Long1-areaLong[Count];
                     distance()
-                    text(dist*3.toFixed(0)+"ft from Point #"+Count,350,295);
+                    text((dist*3).toFixed(0)+"ft from Point #"+Count,350,295);
                 }
             }
             else {
