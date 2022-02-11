@@ -6,6 +6,8 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
+         var msg= "02.11.22/15:15";       
+
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
          var ThirdColor = color(70,50,168);
@@ -33,13 +35,12 @@ var Testing = function(processingInstance) {
          var convertSpeed = [3,180,2.0454545,0.9144,3.29184]
          var convertDistance = [3,3,0.000568181818,0.9144,0.0009144];
          var distLabel = [" ft/sec"," ft/min"," mph"," meters/sec","km/hr"];
-         var speedLabel = ["feet","feet","miles","meters","kilometers"];
+         var speedLabel = [" feet"," feet"," miles"," meters"," km"];
          var speedTotal = 0;
         const areaLat = [];
         const areaLong = [];
         var R = Math.PI/180;
 
-         var msg= "02.11.22/15:00";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
@@ -243,9 +244,9 @@ var Testing = function(processingInstance) {
             text("m/sec",450,50);
             text("km/hr",550,50);
             textSize(40);
-            text("Start"+(Count+1),350,170);
+            text("Start",350,170);
             text("Total Distance:"+(totalDistance*convertDistance[speedType]).toFixed(3)+distLabel[speedType],350,300);
-            text("Average Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,360)
+            text("Avg Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,360)
             if(Count===9) {
                 text("5-sec Distance: "+flashDistance.toFixed(3)+distLabel[speedType],350,400);
                 text("5-sec Speed: "+flashSpeed.toFixed(3)+speedLabel[speedType],350,460);
@@ -269,14 +270,16 @@ var Testing = function(processingInstance) {
 
             if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=600 && mouseY<=700) {
                 Activity = 3;
+                getLocation();
                 setInterval(trackLocation,500);
                 Count=0;
-                speedDistance = 0;
+                totalSpeed = 0;
+                totalDistance = 0;
+                flashSpeed = 0;
+                flashDistance = 0;
                 startTrack = 0; 
                 speedDist = [];
-                speedSpeed = 0;
                 speedType = 1;
-                speedPause = 0;
             }
            
             if(Activity===1 && mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
@@ -319,12 +322,13 @@ var Testing = function(processingInstance) {
                 }
                 if(mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
                     Count=0;
-                    speedDistance = 0;
+                    totalSpeed = 0;
+                    totalDistance = 0;
+                    flashSpeed = 0;
+                    flashDistance = 0;
                     startTrack = 0; 
                     speedDist = [];
-                    speedSpeed = 0;
                     speedType = 1;
-                    speedPause = 0;
                     getlocation();
                 }            
                 if(mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
