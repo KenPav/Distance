@@ -34,8 +34,8 @@ var Testing = function(processingInstance) {
          var totalSpeed = 0;
          var convertSpeed = [3,180,2.0454545,0.9144,3.29184]
          var convertDistance = [3,3,0.000568181818,0.9144,0.0009144];
-         var distLabel = [" ft/sec"," ft/min"," mph"," meters/sec","km/hr"];
-         var speedLabel = [" feet"," feet"," miles"," meters"," km"];
+         var speedLabel = [" ft/sec"," ft/min"," mph"," meters/sec","km/hr"];
+         var distLabel = [" feet"," feet"," miles"," meters"," km"];
          var speedTotal = 0;
         const areaLat = [];
         const areaLong = [];
@@ -245,11 +245,11 @@ var Testing = function(processingInstance) {
             text("km/hr",550,50);
             textSize(40);
             text("Start",350,170);
-            text("Total Distance:"+(totalDistance*convertDistance[speedType]).toFixed(3)+distLabel[speedType],350,300);
-            text("Avg Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,360)
+            text("Total Distance:"+(totalDistance*convertDistance[speedType]).toFixed(3)+distLabel[speedType],350,270);
+            text("Avg Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,320)
             if(Count===9) {
                 text("5-sec Distance: "+flashDistance.toFixed(3)+distLabel[speedType],350,400);
-                text("5-sec Speed: "+flashSpeed.toFixed(3)+speedLabel[speedType],350,460);
+                text("5-sec Speed: "+flashSpeed.toFixed(3)+speedLabel[speedType],350,450);
             }
             text("Main Menu",350,570);
 
