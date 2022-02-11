@@ -39,7 +39,7 @@ var Testing = function(processingInstance) {
         const areaLong = [];
         var R = Math.PI/180;
 
-         var msg= "02.09.22/11:00";       
+         var msg= "02.11.22/15:00";       
 
         var getLocation = function() {
             if (navigator.geolocation) {
