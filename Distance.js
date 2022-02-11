@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.11.22/15:15";       
+         var msg= "02.11.22/15:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -271,6 +271,7 @@ var Testing = function(processingInstance) {
             if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=600 && mouseY<=700) {
                 Activity = 3;
                 getLocation();
+                getLocation();
                 setInterval(trackLocation,500);
                 Count=0;
                 totalSpeed = 0;
@@ -320,7 +321,7 @@ var Testing = function(processingInstance) {
                         speedType=i;
                     }
                 }
-                if(mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
+                if(mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
                     Count=0;
                     totalSpeed = 0;
                     totalDistance = 0;
@@ -330,6 +331,7 @@ var Testing = function(processingInstance) {
                     speedDist = [];
                     speedType = 1;
                     getlocation();
+                    getLocation()
                 }            
                 if(mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
                     Activity = 0;
