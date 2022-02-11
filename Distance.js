@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.11.22/15:45";       
+         var msg= "02.11.22/16:00";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -247,7 +247,7 @@ var Testing = function(processingInstance) {
             text("Start",350,170);
             text("Total Distance:"+(totalDistance*convertDistance[speedType]).toFixed(3)+distLabel[speedType],350,270);
             text("Avg Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,320)
-            if(Count===9) {
+            if(Count===9 && flashDistance>0) {
                 text("5-sec Distance: "+flashDistance.toFixed(3)+distLabel[speedType],350,400);
                 text("5-sec Speed: "+flashSpeed.toFixed(3)+speedLabel[speedType],350,450);
             }
