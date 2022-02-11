@@ -1,7 +1,7 @@
 var Testing = function(processingInstance) {
     with (processingInstance) {
-        var canvasSize = 700;
-        size(canvasSize,canvasSize); 
+
+        size(700,1100); 
         frameRate(30);
         
         // ProgramCodeGoesHere
@@ -23,7 +23,18 @@ var Testing = function(processingInstance) {
          var Long2 = 0;
          var dist=0;
          var startTrack=0; 
-
+         var speedDist = [0,0,0,0,0,0,0,0,0,0];
+         var flashSpeed = 0;
+         var flashDistance = 0
+         var speedType = 1;
+         var speedPause = 0;
+         var totalDistance = 0;
+         var totalSpeed = 0;
+         var convertSpeed = [3,180,2.0454545,0.9144,3.29184]
+         var convertDistance = [3,3,0.000568181818,0.9144,0.0009144];
+         var distLabel = [" ft/sec"," ft/min"," mph"," meters/sec","km/hr"];
+         var speedLabel = ["feet","feet","miles","meters","kilometers"];
+         var speedTotal = 0;
         const areaLat = [];
         const areaLong = [];
         var R = Math.PI/180;
@@ -51,22 +62,45 @@ var Testing = function(processingInstance) {
         }
         function savePosition1(position) {
             console.log("Made it to savePosition1, Activity = ",Activity);
-            if(Activity===1) {
+            if(Activity===1 || Activity===3) {
                 Lat1 = position.coords.latitude;
                 Long1 = position.coords.longitude;           
+                console.log("here at Distance",Lat1.toFixed(3),Long1.toFixed(3));                      
             }
             if(Activity===2) {
                 console.log("ready to add lat/long");
                 areaLat.push(position.coords.latitude);
                 areaLong.push(position.coords.longitude); 
-                console.log("here",Count,areaLat[Count].toFixed(3),areaLong[Count].toFixed(3));                      
+                console.log("here at Area",Count,areaLat[Count].toFixed(3),areaLong[Count].toFixed(3));                      
                 Count++;  
             }
         }
         function savePosition2(position) {
             console.log("Made it to savePosition2");
             Lat2 = position.coords.latitude;
-            Long2 = position.coords.longitude;           
+            Long2 = position.coords.longitude;
+            if(Activity===3) {
+                distance();
+                Lat1 = Lat2;
+                Long1 = Long2;
+                totalDistance = totalDistance + dist;
+                totalSpeed = totalDistance / (startTrack*2);  // yds/sec
+                startTrack++;        
+                if(Count===9) {
+                    flashDistance=0;
+                    for (i=0; i<9; i++) {
+                        speedDist[i]=speedDist[i+1];
+                        flashDistance = flashDistance + speedDist[i+1];
+                    }
+                    speedDist[Count] = dist
+                    flashDistance = flashDistance + dist
+                    flashSpeed = flashDistance/5;  // yds/sec
+                }
+                else {
+                    speedDist[Count] = dist;
+                    Count++;
+                }
+            }           
         }
         function displayError(){
             text("at displayError",600,50);
@@ -103,11 +137,13 @@ var Testing = function(processingInstance) {
             fill(BoxColor);
             rect(200,200,300,100);
             rect(200,400,300,100);
+            rect(200,600,300,100);
             textSize(40);
             textAlign(CENTER);
             fill(FirstColor);
             text("Distance",350,270);
             text("Area",350,470);
+            text("Velocity",350,670);            
         }
 
         distanceActivity = function() {
@@ -179,9 +215,42 @@ var Testing = function(processingInstance) {
 //          Calculate area in acres
                 acresArea = sfArea / 43560 ;
                 console.log(Area,sfArea,acresArea);
-
             }
+        }
 
+        velocityActivity = function(){
+//      Velocity Calculation
+            background(BackColor);
+            fill(BoxColor);
+            for (i = 0; i < 5; i++) {
+                if(i===speedType) {
+                    fill(SelectBoxColor);
+                } else {
+                    fill(BoxColor);        
+                }
+                rect(100+i*100,15,100,50);
+            }
+            fill(BoxColor);
+            rect(200,100,300,100);
+//            rect(200,300,300,100);
+            rect(200,500,300,100);
+            textSize(30);
+            textAlign(CENTER);
+            fill(FirstColor);
+            text("ft/sec",150,50);
+            text("ft/min",250,50);
+            text("mi/hr",350,50);
+            text("m/sec",450,50);
+            text("km/hr",550,50);
+            textSize(40);
+            text("Start"+(Count+1),350,170);
+            text("Total Distance:"+(totalDistance*convertDistance[speedType]).toFixed(3)+distLabel[speedType],350,300);
+            text("Average Speed: "+(totalSpeed*convertSpeed[speedType]).toFixed(3)+speedLabel[speedType],350,360)
+            if(Count===9) {
+                text("5-sec Distance: "+flashDistance.toFixed(3)+distLabel[speedType],350,400);
+                text("5-sec Speed: "+flashSpeed.toFixed(3)+speedLabel[speedType],350,460);
+            }
+            text("Main Menu",350,570);
 
         }
 
@@ -194,14 +263,25 @@ var Testing = function(processingInstance) {
 
             if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=400 && mouseY<=500) {
                 Activity = 2;
-                setInterval(trackLocation,1000);
+                setInterval(trackLocation,500);
                 Count = 0;
-
             }            
 
+            if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=600 && mouseY<=700) {
+                Activity = 3;
+                setInterval(trackLocation,500);
+                Count=0;
+                speedDistance = 0;
+                startTrack = 0; 
+                speedDist = [];
+                speedSpeed = 0;
+                speedType = 1;
+                speedPause = 0;
+            }
+           
             if(Activity===1 && mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
                 getLocation();
-                setInterval(trackLocation,1000);
+                setInterval(trackLocation,500);
                 startTrack=0;
             }            
 
@@ -231,6 +311,29 @@ var Testing = function(processingInstance) {
                 clearInterval(trackLocation);
             }            
 
+            if(Activity===3) {
+                for (i = 0; i < 5; i++) {
+                    if(mouseX>=100+100*i && mouseX<=200+100*i && mouseY>=15 && mouseY<=65) {
+                        speedType=i;
+                    }
+                }
+                if(mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
+                    Count=0;
+                    speedDistance = 0;
+                    startTrack = 0; 
+                    speedDist = [];
+                    speedSpeed = 0;
+                    speedType = 1;
+                    speedPause = 0;
+                    getlocation();
+                }            
+                if(mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
+                    Activity = 0;
+                    clearInterval(trackLocation);
+                }            
+                
+            }            
+
 
         }
 
@@ -252,8 +355,12 @@ var Testing = function(processingInstance) {
                 areaActivity();
             }
 
+            if(Activity === 3) {
+                velocityActivity();
+            }
+
             textSize(25);
-            text("Version: "+msg,350,650);
+            text("Version: "+msg,350,1050);
 
 
         }
