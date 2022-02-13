@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/15:20";       
+         var msg= "02.13.22/15:30";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -40,6 +40,7 @@ var Testing = function(processingInstance) {
         const areaLat = [];
         const areaLong = [];
         var R = Math.PI/180;
+        var chkLoc = 0;
 
 
         var getLocation = function() {
@@ -180,7 +181,7 @@ var Testing = function(processingInstance) {
             textSize(40);
             textAlign(CENTER);
             fill(FirstColor);
-            text(startTrack,550,170)
+            text(chkLoc,550,170)
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
                 text(Lat2.toFixed(6)+", "+Long2.toFixed(6),350,250);
@@ -312,21 +313,21 @@ var Testing = function(processingInstance) {
                     areaLat = [];
                     areaLong = [];
                     Count = 0;
-                    startTrack = 1;
+                    chkLoc = 1;
                     return;
                 }
                 getLocation();
-                startTrack = 3
+                chkLoc = 2;
             }            
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=300 && mouseY<=400) {
                 if(Area != 0) {
                     Area = 0;
                     sfArea = 0;
-                    startTrack = 2;
+                    chkLoc = 3;
                 } else {
                     calcArea();
-                    startTrack = 4;
+                    chkLoc = 4;
                 }
             }            
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
