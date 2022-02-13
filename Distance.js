@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/14:45";       
+         var msg= "02.13.22/14:55";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -305,7 +305,7 @@ var Testing = function(processingInstance) {
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
                 console.log("Area Test",Area,Count);
-                if (sfArea != 0) {
+                if (Area != 0) {
                     Area=0;
                     sfArea=0;
                     areaLat = [];
