@@ -277,7 +277,7 @@ var Testing = function(processingInstance) {
                 areaLong = [];
                 Count = 0;
                 setInterval(trackLocation,500);
-                Count = 0;
+
             }            
 
             if(Activity===0 && mouseX>=200 && mouseX<=500 && mouseY>=600 && mouseY<=700) {
