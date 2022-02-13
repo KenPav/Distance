@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/14:55";       
+         var msg= "02.13.22/15:15";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -183,7 +183,7 @@ var Testing = function(processingInstance) {
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
                 text(Lat2.toFixed(6)+", "+Long2.toFixed(6),350,250);
-                if(Count>1) {
+                if(Count>2) {
                     Lat1=areaLat[Count];
                     Long1-areaLong[Count];
                     distance()
@@ -311,7 +311,7 @@ var Testing = function(processingInstance) {
                     areaLat = [];
                     areaLong = [];
                     Count = 0;
-                    draw();
+                    return;
                 }
                 getLocation();
             }            
