@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/16:35";       
+         var msg= "02.13.22/16:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -181,7 +181,7 @@ var Testing = function(processingInstance) {
             textSize(40);
             textAlign(CENTER);
             fill(FirstColor);
-            text(chkLoc+" "+mouseX+" "+mouseY,550,170)
+            text(chkLoc+" "+mouseX+" "+mouseY,600,170)
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
                 text(Lat2.toFixed(6)+", "+Long2.toFixed(6),350,250);
@@ -329,10 +329,10 @@ var Testing = function(processingInstance) {
                 if(Area != 0) {
                     Area = 0;
                     sfArea = 0;
-//                    chkLoc = 3;
+                    chkLoc = 3;
                 } else {
                     calcArea();
-//                    chkLoc = 4;
+                    chkLoc = 4;
                 }
             }            
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
