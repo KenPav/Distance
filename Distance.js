@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.11.22/16:00";       
+         var msg= "02.13.22/14:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -193,7 +193,11 @@ var Testing = function(processingInstance) {
             else {
                 text("Start New Area",350,170);    
             }
-            text("Calculate Area",350,370);
+            if (Area != 0) {
+                text("Add More Pts",350,370);
+            } else {
+                text("Calculate Area",350,370);
+            }
             if (Area != 0) {
                 text("Area: "+sfArea.toFixed(0)+" sq ft  /  "+acresArea.toFixed(3)+" acres",350,440);
             }
@@ -282,7 +286,9 @@ var Testing = function(processingInstance) {
                 speedDist = [];
                 speedType = 1;
             }
-           
+
+//          DISTANCE CALCULATOR
+
             if(Activity===1 && mouseX>=100 && mouseX<=300 && mouseY>=100 && mouseY<=200) {
                 getLocation();
                 setInterval(trackLocation,500);
@@ -293,6 +299,9 @@ var Testing = function(processingInstance) {
                 Activity = 0;
                 clearInterval(trackLocation);
             }            
+
+
+//          AREA CALCULATOR
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
                 console.log("Area Test",Area,Count);
@@ -308,12 +317,19 @@ var Testing = function(processingInstance) {
             }            
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=300 && mouseY<=400) {
-                calcArea();
+                if(Area != 0) {
+                    Area = 0;
+                    sfArea = 0;
+                } else {
+                    calcArea();
+                }
             }            
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
                 Activity = 0;
                 clearInterval(trackLocation);
             }            
+
+//          VELOCITY CALCULATOR
 
             if(Activity===3) {
                 for (i = 0; i < 5; i++) {
