@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/16:00";       
+         var msg= "02.13.22/16:15";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -324,10 +324,10 @@ var Testing = function(processingInstance) {
                 if(Area != 0) {
                     Area = 0;
                     sfArea = 0;
-                    chkLoc = 3;
+//                    chkLoc = 3;
                 } else {
                     calcArea();
-                    chkLoc = 4;
+//                    chkLoc = 4;
                 }
             }            
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=500 && mouseY<=600) {
