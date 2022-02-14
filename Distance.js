@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.13.22/17:00";       
+         var msg= "02.14.22/11:00";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -275,7 +275,8 @@ var Testing = function(processingInstance) {
                 sfArea=0;
                 areaLat = [];
                 areaLong = [];
-                Count = 0;
+                getLocation();
+                Count = Count-1;
                 setInterval(trackLocation,500);
 
             }            
