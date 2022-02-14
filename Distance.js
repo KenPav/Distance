@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.14.22/12:00";       
+         var msg= "02.14.22/14:00";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -115,9 +115,8 @@ var Testing = function(processingInstance) {
         }
 
 
-//        function distance(Lat1, Long1, Lat2, Long2) {
         function distance() {
-            console.log("Made it to distance",Lat1,Long1,Lat2,Long2);
+//            console.log("Made it to distance",Lat1,Long1,Lat2,Long2);
             if ((Lat1 == Lat2) && (Long1 == Long2)) {
                 dist=0
                 return dist;
@@ -195,7 +194,7 @@ var Testing = function(processingInstance) {
                     Lat1=areaLat[Count-1];
                     Long1=areaLong[Count-1];
                     distance()
-                    console.log("Lat1, Long1, Count",Lat1,Long1,Count);
+//                    console.log("Lat1, Long1, Count",Lat1,Long1,Count);
                     text((dist*3).toFixed(0)+"ft from Point #"+Count,350,295);
                 }
             }
@@ -279,8 +278,6 @@ var Testing = function(processingInstance) {
                 Activity = 2;
                 Area=0;
                 sfArea=0;
-//                areaLat = [];
-//                areaLong = [];
                 areaLat.splice(0, areaLat.length);
                 areaLong.splice(0, areaLong.length);
                 Count = 0;
@@ -321,15 +318,16 @@ var Testing = function(processingInstance) {
 //          AREA CALCULATOR
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=100 && mouseY<=200) {
-                console.log("Area Test",Area,Count);
                 if (Area != 0) {
+                console.log("Area Test 1",Area,Count);
                     Area=0;
                     sfArea=0;
-                    areaLat = [];
-                    areaLong = [];
+                    areaLat.splice(0, areaLat.length);
+                    areaLong.splice(0, areaLong.length);
                     Count = 0;
                     chkLoc = 1;
                 } else {
+                console.log("Area Test 2",Area,Count);
                     getLocation();
                     chkLoc = 2;
                 }
@@ -337,11 +335,13 @@ var Testing = function(processingInstance) {
 
             if(Activity===2 && mouseX>=200 && mouseX<=500 && mouseY>=300 && mouseY<=400) {
                 if(Area != 0) {
+                console.log("Area Test 3",Area,Count);
                     Area = 0;
                     sfArea = 0;
                     chkLoc = 3;
                 } else {
                     calcArea();
+                console.log("Area Test 4",Area,Count);
                     chkLoc = 4;
                 }
             }            
