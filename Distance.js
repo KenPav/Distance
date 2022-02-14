@@ -22,6 +22,16 @@ var Testing = function(processingInstance) {
          var minLong = 0;
          var maxLat = 0;
          var maxLong = 0;
+         var lenLat = 0;
+         var lenLong = 0;
+         var ULx = 0;
+         var ULy = 0;
+         var Lx = 0;
+         var Ly = 0;
+         var x1 = 0;
+         var y1 = 0;
+         var x2 = 0;
+         var y2 = 0;
          var Lat = 0;
          var Long = 0;
          var Lat1 = 0;
@@ -210,6 +220,9 @@ var Testing = function(processingInstance) {
                 text("Area: "+sfArea.toFixed(0)+" sq ft  /  "+acresArea.toFixed(3)+" acres",350,440);
             }
             text("Main Menu",350,570);
+            if(Count>1) {
+                mapIt();
+            }
         }
 
         calcArea = function() {
@@ -267,6 +280,49 @@ var Testing = function(processingInstance) {
 
         }
 
+        mapIt = function() {
+            minLat = 1000;
+            minLong = 1000;
+            maxLat = -1000;
+            maxLong = -1000;
+            for(i=0; i<Count; i++) {
+                console.log("Count, Lat, Long ",i,areaLat[i],areaLong[i]);
+                if(areaLat[i]<minLat) {
+                    minLat=areaLat[i];
+                }
+                if(areaLong[i]<minLong) {
+                    minLong=areaLong[i];
+                }
+                if(areaLat[i]>maxLat) {
+                    maxLat=areaLat[i];
+                }
+                if(areaLong[i]>maxLong) {
+                    maxLong=areaLong[i];
+                }
+            }
+            console.log(minLat,maxLat,minLong,maxLong,lenLat,lenLong);
+            lenLat = maxLat - minLat;
+            lenLong = maxLong - minLong;
+            maxLat = maxLat + 0.05 * lenLat;
+            minLat = minLat + 0.05 * lenLat;
+            maxLong = maxLong + 0.05 * lenLong;
+            minLong = minLong + 0.05 * lenLong;
+            lenLat = maxLat - minLat;
+            lenLong = maxLong - minLong;
+            ULx = 100;
+            ULy = 600;
+            Lx = 500;
+            Ly = 500;
+            fill(BoxColor);
+            rect(ULx,ULy,Lx,Ly);
+            for(i=1; i<Count; i++) {
+                x1 = ULx+(areaLong[i-1]-minLong)*(lenLong/Lx);
+                y1 = ULy+Ly-(areaLat[i-1]-minLat)*(lenLat/Ly);
+                x2 = ULx+(areaLong[i]-minLong)*(lenLong/Lx);
+                y2 = ULy+Ly-(areaLat[i]-minLat)*(lenLat/Ly);
+                line(x1,y1,x2,y2);
+            }
+        }
 
         mouseClicked = function() {
 
