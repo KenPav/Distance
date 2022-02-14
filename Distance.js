@@ -317,10 +317,10 @@ var Testing = function(processingInstance) {
             rect(ULx,ULy,Lx,Ly);
             fill(FirstColor);
             for(i=1; i<Count; i++) {
-                x1 = ULx+(areaLong[i-1]-minLong)*(lenLong/Lx);
-                y1 = ULy+Ly-(areaLat[i-1]-minLat)*(lenLat/Ly);
-                x2 = ULx+(areaLong[i]-minLong)*(lenLong/Lx);
-                y2 = ULy+Ly-(areaLat[i]-minLat)*(lenLat/Ly);
+                x1 = ULx+(areaLong[i-1]-minLong)*(Lx/lenLong);
+                y1 = ULy+Ly-(areaLat[i-1]-minLat)*(Ly/lenLat);
+                x2 = ULx+(areaLong[i]-minLong)*(Lx/lenLong);
+                y2 = ULy+Ly-(areaLat[i]-minLat)*(Ly/lenLat);
                 line(x1,y1,x2,y2);
                 console.log("x1,y1,x2,y2 ",x1,y1,x2,y2);
             }
