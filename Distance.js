@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.14.22/17:00";       
+         var msg= "02.14.22/17:30";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -286,7 +286,7 @@ var Testing = function(processingInstance) {
             maxLat = -1000;
             maxLong = -1000;
             for(i=0; i<Count; i++) {
-                console.log("Count, Lat, Long ",i,areaLat[i],areaLong[i]);
+//                console.log("Count, Lat, Long ",i,areaLat[i],areaLong[i]);
                 if(areaLat[i]<minLat) {
                     minLat=areaLat[i];
                 }
@@ -300,13 +300,13 @@ var Testing = function(processingInstance) {
                     maxLong=areaLong[i];
                 }
             }
-            console.log(minLat,maxLat,minLong,maxLong,lenLat,lenLong);
+//            console.log(minLat,maxLat,minLong,maxLong,lenLat,lenLong);
             lenLat = maxLat - minLat;
             lenLong = maxLong - minLong;
             maxLat = maxLat + 0.05 * lenLat;
-            minLat = minLat + 0.05 * lenLat;
+            minLat = minLat - 0.05 * lenLat;
             maxLong = maxLong + 0.05 * lenLong;
-            minLong = minLong + 0.05 * lenLong;
+            minLong = minLong - 0.05 * lenLong;
             lenLat = maxLat - minLat;
             lenLong = maxLong - minLong;
             ULx = 100;
