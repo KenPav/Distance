@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.14.22/14:00";       
+         var msg= "02.14.22/14:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -83,7 +83,7 @@ var Testing = function(processingInstance) {
             }
         }
         function savePosition2(position) {
-            console.log("Made it to savePosition2");
+//            console.log("Made it to savePosition2");
             Lat2 = position.coords.latitude;
             Long2 = position.coords.longitude;
             if(Activity===3) {
@@ -185,8 +185,8 @@ var Testing = function(processingInstance) {
             textSize(40);
             textAlign(CENTER);
             fill(FirstColor);
-            text(chkLoc+" "+mouseX+" "+mouseY,600,120);
-            text(Area.toFixed(0),600,170);
+//            text(chkLoc+" "+mouseX+" "+mouseY,600,120);
+//            text(Area.toFixed(0),600,170);
             if (Area===0) {
                 text("Set Point #"+(Count+1),350,170);
                 text(Lat2.toFixed(6)+", "+Long2.toFixed(6),350,250);
