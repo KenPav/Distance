@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.14.22/16:30";       
+         var msg= "02.14.22/16:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -315,12 +315,14 @@ var Testing = function(processingInstance) {
             Ly = 500;
             fill(BoxColor);
             rect(ULx,ULy,Lx,Ly);
+            fill(FirstColor);
             for(i=1; i<Count; i++) {
                 x1 = ULx+(areaLong[i-1]-minLong)*(lenLong/Lx);
                 y1 = ULy+Ly-(areaLat[i-1]-minLat)*(lenLat/Ly);
                 x2 = ULx+(areaLong[i]-minLong)*(lenLong/Lx);
                 y2 = ULy+Ly-(areaLat[i]-minLat)*(lenLat/Ly);
                 line(x1,y1,x2,y2);
+                console.log("x1,y1,x2,y2 ",x1,y1,x2,y2);
             }
         }
 
