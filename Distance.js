@@ -1,7 +1,7 @@
 var Testing = function(processingInstance) {
     with (processingInstance) {
 
-        size(800,1200); 
+        size(800,1000); 
         frameRate(30);
         
         // ProgramCodeGoesHere
