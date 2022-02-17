@@ -6,7 +6,7 @@ var Testing = function(processingInstance) {
         
         // ProgramCodeGoesHere
 
-         var msg= "02.17.22/10:45";       
+         var vers= "02.17.22/10:45";       
 
          var FirstColor = color(0, 0, 0);
          var SecondColor = color(135,10,10);
@@ -121,7 +121,7 @@ var Testing = function(processingInstance) {
         }
         function displayError(){
             text("at displayError",600,50);
-            msg="at displayError";
+//            msg="at displayError";
         }
 
 
@@ -463,8 +463,8 @@ var Testing = function(processingInstance) {
             }
 
             textSize(25);
-            text("Vers: "+vers,400*xAdj,985*yAdj);
-//            text("Version: "+msg,350,1050);
+            text("Vers: "+vers,400,985);
+//            text("Version: "+vers,350,1050);
 
 
         }
